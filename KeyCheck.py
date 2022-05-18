@@ -1,3 +1,10 @@
+class RepeatException(Exception):
+    pass
+class GapException(Exception):
+    pass
+class InputException(Exception):
+    pass
+
 def Check(string, keyElems):
 
 

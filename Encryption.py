@@ -17,7 +17,6 @@ def Encrypting(string, keyElems):
             string.append ('\0')
         changed = True
 
-
     EncryptedString = [" "]*len(string)
 
     ###
