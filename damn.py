@@ -13,10 +13,12 @@ def ByChar(string, key):
     shift = 0
     # if str > key then add \o and split string to blocks 
     for i in range (len(stringElems) // len(keyElems)):
-        
+        # encryption
         for index in range(len(keyElems)):
             EncryptedString[keyElems[index]+shift] = stringElems[index+shift]
+        # shift indexes if str > key
         shift = shift + len(keyElems)
+    #final string
     print("".join(EncryptedString))
 
 ByChar(string, key)
