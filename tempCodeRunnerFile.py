@@ -1,2 +1,2 @@
-    # for i in range (len(stringElems) % len(keyElems)):
-    #     stringElems.append('\0')
+class RepeatExeption(Exception):
+    pass
