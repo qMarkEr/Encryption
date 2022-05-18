@@ -32,62 +32,86 @@ def Check(string, keyElems):
             raise GapException()
 
 def Encrypting(string, keyElems): 
+    ### string prepare
+
     # \0 was added or not
     changed = False
+
     # if string length bigger then count of indexes then expand string to fit several keys
     if len(string) > len(keyElems):
         while(len(string) % len(keyElems)!= 0):
             string.append('\0')
         changed = True
+
+
     # add \0 if correct key have index more the length of string
     if len(string) < max(keyElems):
         for i in range (max(keyElems) - len(string)+1):
             string.append ('\0')
         changed = True
+
+
     EncryptedString = [" "]*len(string)
-    
-        
+
+    ###
+
     shift = 0
     # if str > key then add \o and split string to blocks 
     for i in range (len(string) // len(keyElems)):
+
         # encryption
         for index in range(len(keyElems)):
             EncryptedString[keyElems[index]+shift] = string[index+shift]
+
         # shift indexes if str > key
         shift = shift + len(keyElems)
+
     #final string
     if changed:
         EncryptedString.remove('\0')
+
+        
     print("".join(EncryptedString))
 
 print("Enter a message to encrypt: ")
 string = str(input())
+
 while(enter):
     try:
         stringElem = []
-        print("Choose type of encryption: by words, by blocks, by cahracters (words, blocks, characters): ")
+        print("Choose type of encryption: by words (w), by blocks (b), by cahracters (c): ")
         x = str(input())
         match x:
-            case "words":
+
+            case "w":
                 stringElem = string.split(" ")
                 enter = False
-            case "blocks":
+
+
+            case "b":
                 print("Enter the length of single block: ")
                 step = int(input())
                 for i in range (0, len(string), step):
                     stringElem.append(string[i:i+step])
                 enter = False
-            case "characters":
+
+
+            case "c":
                 stringElem = [elem for elem in string]
                 enter = False
+
+
             case default:
                 raise InputException()
+
+
     except InputException:
         print("Wrong input! Try again")
-        
+
 enter = True
 
 while (enter):
+
     try:    
         print("Enter a key: ")
         key = str(input())  # space entry
@@ -97,8 +121,10 @@ while (enter):
     
     except RepeatException: 
         print("There is repeted element in key. Try again")
+
     except GapException: 
         print("There is gap in key. Try again")
+
     else:
         # if input correct break cycle and run encryptikng function
         enter = False
