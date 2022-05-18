@@ -5,13 +5,18 @@ class RepeatException(Exception):
     pass
 class GapException(Exception):
     pass
-
+class InputException(Exception):
+    pass
 
 def Check(string, keyElems):
+
+
     for i in range(len(keyElems)):
         # if there was the same element before the current one: esception
         if keyElems[0:i].count(keyElems[i]) != 0:
             raise RepeatException()
+
+            
     # same key but sorted 
     tempKey = keyElems[:]
     tempKey.sort()
@@ -19,6 +24,8 @@ def Check(string, keyElems):
     # if user started input from 1
     if tempKey.count(0) == 0:
         raise GapException()
+
+
     # if there is no some index: esception
     for i in range(1, len(tempKey)):
         if (tempKey[i-1] + 1) < tempKey[i]:
@@ -49,20 +56,45 @@ def Encrypting(string, keyElems):
         # shift indexes if str > key
         shift = shift + len(keyElems)
     #final string
-   # if changed:
-    #    EncryptedString.remove('\0')
+    if changed:
+        EncryptedString.remove('\0')
     print("".join(EncryptedString))
 
+print("Enter a message to encrypt: ")
+string = str(input())
 while(enter):
     try:
-        string = str(input())
-        step = int(input())
         stringElem = []
-        for i in range (0, len(string), step):
-            stringElem.append(string[i:i+step])
+        print("Choose type of encryption: by words, by blocks, by cahracters (words, blocks, characters): ")
+        x = str(input())
+        match x:
+            case "words":
+                stringElem = string.split(" ")
+                enter = False
+            case "blocks":
+                print("Enter the length of single block: ")
+                step = int(input())
+                for i in range (0, len(string), step):
+                    stringElem.append(string[i:i+step])
+                enter = False
+            case "characters":
+                stringElem = [elem for elem in string]
+                enter = False
+            case default:
+                raise InputException()
+    except InputException:
+        print("Wrong input! Try again")
+        
+enter = True
+
+while (enter):
+    try:    
+        print("Enter a key: ")
         key = str(input())  # space entry
-        keyElems = list(map(int, key.split(" ")))
+        key = list(map(int, key.replace(" ", "")))
+        keyElems = [elem for elem in key]
         Check(stringElem, keyElems)
+    
     except RepeatException: 
         print("There is repeted element in key. Try again")
     except GapException: 
