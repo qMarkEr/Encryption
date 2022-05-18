@@ -24,18 +24,18 @@ def Check(string, keyElems):
         if (tempKey[i-1] + 1) < tempKey[i]:
             raise GapException()
 
-def ByChar(string, keyElems): 
+def Encrypting(string, keyElems): 
     # \0 was added or not
     changed = False
     # if string length bigger then count of indexes then expand string to fit several keys
     if len(string) > len(keyElems):
-        for i in range (len(string) % len(keyElems)):
-            string = string + ('\0')
+        while(len(string) % len(keyElems)!= 0):
+            string.append('\0')
         changed = True
     # add \0 if correct key have index more the length of string
     if len(string) < max(keyElems):
         for i in range (max(keyElems) - len(string)+1):
-            string = string + ('\0')
+            string.append ('\0')
         changed = True
     EncryptedString = [" "]*len(string)
     
@@ -49,16 +49,20 @@ def ByChar(string, keyElems):
         # shift indexes if str > key
         shift = shift + len(keyElems)
     #final string
-    if changed:
-        EncryptedString.remove('\0')
+   # if changed:
+    #    EncryptedString.remove('\0')
     print("".join(EncryptedString))
 
 while(enter):
     try:
-        string =  str(input())
+        string = str(input())
+        step = int(input())
+        stringElem = []
+        for i in range (0, len(string), step):
+            stringElem.append(string[i:i+step])
         key = str(input())  # space entry
         keyElems = list(map(int, key.split(" ")))
-        Check(string, keyElems)
+        Check(stringElem, keyElems)
     except RepeatException: 
         print("There is repeted element in key. Try again")
     except GapException: 
@@ -66,6 +70,6 @@ while(enter):
     else:
         # if input correct break cycle and run encryptikng function
         enter = False
-        ByChar(string, keyElems)
+        Encrypting(stringElem, keyElems)
 
     
