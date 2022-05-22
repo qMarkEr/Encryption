@@ -8,29 +8,31 @@ def Encrypting(string, keyElems):
     if len(string) > len(keyElems):
         while(len(string) % len(keyElems)!= 0):
             string.append('\0')
-        changed = True
+            changed = True
 
 
     # add \0 if correct key have index more the length of string
-    if len(string) < max(keyElems):
+    if len(string) <= max(keyElems):
         for i in range (max(keyElems) - len(string)+1):
             string.append ('\0')
-        changed = True
+            changed = True
 
     EncryptedString = [" "]*len(string)
 
     ###
 
     shift = 0
-    # if str > key then add \o and split string to blocks 
-    for i in range (len(string) // len(keyElems)):
+    
+    # encrytping...
+    if  len(keyElems) == len(string):
+        for i in range(len(string)):
+            EncryptedString[keyElems[i]] = string[i] 
+    else:
+        for i in range(len(string)):
+            EncryptedString[keyElems[i % len(keyElems)] + shift] = string[i]
 
-        # encryption
-        for index in range(len(keyElems)):
-            EncryptedString[keyElems[index]+shift] = string[index+shift]
-
-        # shift indexes if str > key
-        shift = shift + len(keyElems)
+            if (i+1) % len(keyElems) == 0:
+                shift = shift + len(keyElems)
 
     #final string
     if changed:
