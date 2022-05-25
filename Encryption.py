@@ -1,4 +1,4 @@
-def Encrypting(string, keyElems): 
+def Encrypting(string, keyElems, type): 
     ### string prepare
 
     # \0 was added or not
@@ -35,8 +35,10 @@ def Encrypting(string, keyElems):
                 shift = shift + len(keyElems)
 
     #final string
-    if changed:
-        EncryptedString.remove('\0')
-
-        
-    print("".join(EncryptedString))
+    # if changed:
+    #     EncryptedString.remove('\0')
+    
+    if type == "w":
+        print(" ".join(EncryptedString))
+    else:
+        print("".join(EncryptedString))

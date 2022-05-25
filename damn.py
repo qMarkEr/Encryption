@@ -46,9 +46,6 @@ while(enter):
         case "b":
             print("Enter the length of single block: ")
             step = int(input())
-            for i in range (0, len(string), step):
-                stringElem.append(string[i:i+step])
-            
             enter = False
         case "c":
             stringElem = [elem for elem in string]
@@ -80,9 +77,13 @@ while (enter):
         enter = False
         match enc:
             case "encrypt":
-                
-                Encrypting(stringElem, keyElems)
+                if x == "b":
+                    for i in range (0, len(string), step):
+                        stringElem.append(string[i:i+step])
+                    Encrypting(stringElem, keyElems, x)
+                else:
+                    Encrypting(stringElem, keyElems, x)
             case "decrypt":
-                Decrypting(stringElem, keyElems)
+                Decrypting(stringElem, keyElems, x)
 
     

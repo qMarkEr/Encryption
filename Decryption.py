@@ -1,4 +1,4 @@
-def Decrypting(string, keyElems):
+def Decrypting(string, keyElems, type):
     changed = False
     DecryptedString = []
 
@@ -59,7 +59,11 @@ def Decrypting(string, keyElems):
 
     if changed:
         DecryptedString.remove("\0")
-    print("".join(DecryptedString))
+        # if the message was encrypted by words, join the items with a space
+    if (type == "w"):
+        print(" ".join(DecryptedString))
+    else:
+        print("".join(DecryptedString))
     
     
 
