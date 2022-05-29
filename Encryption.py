@@ -35,8 +35,8 @@ def Encrypting(string, keyElems, type):
                 shift = shift + len(keyElems)
 
     #final string
-    # if changed:
-    #     EncryptedString.remove('\0')
+    if changed:
+        EncryptedString.remove('\0')
     
     if type == "w":
         print(" ".join(EncryptedString))
