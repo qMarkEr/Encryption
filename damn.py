@@ -6,27 +6,16 @@ from Decryption import Decrypting
 # bool variable for entering data
 enter = True
 
-
-# exceptions
-class RepeatException(Exception):
-    pass
-class GapException(Exception):
-    pass
-class InputException(Exception):
-    pass
-class EmptyException(Exception):
-    pass
-
 while(enter):
     print("What do you need: encrypt(e) or decrypt(d)?")
     global enc
     enc = str(input())
     if enc == "e":
-        enter = False
         enc = "encrypt"
-    elif enc == "d":
         enter = False
+    elif enc == "d":
         enc = "decrypt"
+        enter = False
     else:
         print("Wrong input. Try again")
     
@@ -39,8 +28,8 @@ while(enter):
 
     stringElem = []
     print("Choose type of %sion: by words (w), by blocks (b), by cahracters (c): " %enc)
-    x = input()
-    match x:
+    type = input()
+    match type:
         case "w":
             stringElem = string.split(" ")
             enter = False
@@ -75,29 +64,31 @@ while (enter):
             print("Wrong input. It must start from 0. Try again")
         case 3:
             print("There is a gap in key. Try again")
-        case 5:
+        case 4:
             enter = False
 
 
-
-        # if input correct break cycle and run encrypting function
+# if input correct break cycle and run encrypting function
 
 match enc:
     case "encrypt":
-        if x == "b":
-            while len(string) % step != 0:
-                string = string + "\0"
-            for i in range (0, len(string), step):
+
+        # specific split to blocks
+        if type == "b":
+            string = string + "\0"*(step - len(string) % step)
+            for i in range(0, len(string), step):
                 stringElem.append(string[i:i+step])
-            Encrypting(stringElem, keyElems, x)
+            Encrypting(stringElem, keyElems, type)
         else:
-            Encrypting(stringElem, keyElems, x)
+            Encrypting(stringElem, keyElems, type)
     case "decrypt":
-        if x == "b":
+
+        # split to blocks
+        if type == "b":
             for i in range(0, len(string), step):
                 stringElem.append(string[i:i + step])
-            Decrypting(stringElem, keyElems, x)
+            Decrypting(stringElem, keyElems, type)
         else:
-            Decrypting(stringElem, keyElems, x)
+            Decrypting(stringElem, keyElems, type)
 
     

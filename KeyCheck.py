@@ -1,12 +1,3 @@
-class RepeatException(Exception):
-    pass
-class GapException(Exception):
-    pass
-class InputException(Exception):
-    pass
-class EmptyException(Exception):
-    pass
-
 def Check(string, keyElems):
     if len(keyElems) == 0:
         return 0
@@ -17,7 +8,7 @@ def Check(string, keyElems):
             return 1
 
             
-    # same key but sorted 
+# same key but sorted
     tempKey = keyElems[:]
     tempKey.sort()
 
@@ -30,4 +21,4 @@ def Check(string, keyElems):
     for i in range(1, len(tempKey)):
         if (tempKey[i-1] + 1) < tempKey[i]:
             return 3
-    return 5
+    return 4

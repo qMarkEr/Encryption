@@ -4,7 +4,7 @@ def Encrypting(string, keyElems, type):
     # \0 was added or not
     changed = False
 
-    # if string length bigger then count of indexes then expand string to fit several keys
+    # if string length is greater than count of indexes then expand string to fit several keys
     if len(string) > len(keyElems):
         while(len(string) % len(keyElems)!= 0):
             string.append('\0')
@@ -23,7 +23,7 @@ def Encrypting(string, keyElems, type):
 
     shift = 0
     
-    # encrytping...
+    # encrypting...
     if  len(keyElems) == len(string):
         for i in range(len(string)):
             EncryptedString[keyElems[i]] = string[i] 
@@ -34,9 +34,10 @@ def Encrypting(string, keyElems, type):
             if (i+1) % len(keyElems) == 0:
                 shift = shift + len(keyElems)
 
-    #final string
+    # final string
     if changed:
-        EncryptedString.remove('\0')
+        while EncryptedString.count("\0") != 0:
+            EncryptedString.remove('\0')
     
     if type == "w":
         print(" ".join(EncryptedString))

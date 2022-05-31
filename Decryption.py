@@ -58,8 +58,10 @@ def Decrypting(string, keyElems, type):
                     shift = shift + len(keyElems)
 
     if changed:
-        DecryptedString.remove("\0")
-        # if the message was encrypted by words, join the items with a space
+        while DecryptedString.count("\0") != 0:
+            DecryptedString.remove('\0')
+
+    # if the message was encrypted by words, join the items with a space
     if (type == "w"):
         print(" ".join(DecryptedString))
     else:
